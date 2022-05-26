@@ -18,7 +18,7 @@ import lxml
 driver = webdriver.Chrome('/home/curry1824/Desktop/chromedriver_linux64/chromedriver')
 
 
-url = "https://www.ambito.com/contenidos/dolar.html"
+url = "https://www.ambito.com/contenidos/dolar-informal-historico.html"
 driver.get(url)
 
 content = driver.page_source

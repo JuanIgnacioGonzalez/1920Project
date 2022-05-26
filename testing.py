@@ -5,7 +5,7 @@ data = pd.read_csv('datos-tipo-cambio-usd-futuro-dolar-frecuencia-diaria.csv', s
 
 print(data.head())
 print(data.columns)
-data1 = data[['indice_tiempo', 'tipo_cambio_bna_vendedor', 'tipo_cambio_a3500','tipo_cambio_mae',]]
+data1 = data[['indice_tiempo', 'tipo_cambio_bna_vendedor', 'tipo_cambio_a3500','tipo_cambio_mae', 'tipo_cambio_implicito_en_adrs']]
 
 data2 = data[['indice_tiempo', 'volumen_mae', 'interes_abierto_1m', 'futuro_rofex_usd2m',
        'interes_abierto_2m', 'futuro_rofex_usd3m', 'interes_abierto_3m',
