@@ -1,6 +1,8 @@
 import csv
 import pandas as pd
 import plotly.express as px
+import plotly.io as pio
+
 
 import talib
 import numpy
@@ -32,9 +34,13 @@ print(rsi)
 
 data1 = data[['indice_tiempo','tipo_cambio_implicito_en_adrs']]
 data1.insert(2,'rsi',rsi)
+plotly_template = pio.templates["plotly_dark"]
+
 try:
        fig = px.line(data1, x = data1.indice_tiempo,y= data1.columns ,title = "DOLAR BLUE")
-       fig2 = px.line(data1, x = data1.indice_tiempo,y= data1.columns ,title = "DOLAR BLUE")
+       fig.add_hline(y=70)
+       fig.add_hline(y=30)
+       fig.update_layout(template=plotly_template)
        fig.show()
 except Exception as e:
        print('{}'.format(e))
