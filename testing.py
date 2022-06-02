@@ -1,16 +1,17 @@
 import csv
+from turtle import width
 import pandas as pd
 import plotly.express as px
 import plotly.io as pio
-
-
 import talib as talib
 import numpy
 
+
 def add_horizontal_lines(graph, y_low, y_high):
-       graph.add_hline(y=y_high)
-       graph.add_hline(y=y_low)
-#print(help(talib.ADX))
+       graph.add_hline(y= y_high, line_width=3, line_dash="dash", line_color="gray")
+       
+       graph.add_hline(y= y_low, line_width=3, line_dash="dash", line_color="gray")
+#print(help(px.layout.yaxis.rangebreaks))
 
 data = pd.read_csv('datos-tipo-cambio-usd-futuro-dolar-frecuencia-diaria.csv', sep = ',')
 
@@ -26,7 +27,7 @@ data = pd.read_csv('datos-tipo-cambio-usd-futuro-dolar-frecuencia-diaria.csv', s
 
 closes = [0]
 opens = [0]
-
+indicador_confirmation = False
 cont = 1
 while cont <= int(data.index[-1]):
        closes.append(data['tipo_cambio_implicito_en_adrs'][cont])
@@ -38,19 +39,33 @@ np_closes = numpy.array(closes)
 np_opens = numpy.array(opens)
 
 select_coin = int(input("(1):tipo_cambio_bna_vendedor \n(2):tipo_cambio_a3500 \n(3):tipo_cambio_mae\n(4):tipo_cambio_implicito_en_adrs \nINGRESE LA MONEDA QUE QUIERA USAR-->  "))
-select_ind = str(input("INGRESE EL INDICADOR QUE QUIERA USAR-->  ")).upper()
 
-ind_function = getattr(talib, select_ind)
 
-try:
-       ind = ind_function(np_closes)
-except Exception as e:
+while True:
+       select_ind = str(input("INGRESE EL INDICADOR QUE QUIERA USAR, SI NO QUIERE ANALIZAR INGRESE N-->  ")).upper()
+       if select_ind == "N":
+              ind_function = "N"
+              select_ind = "SIN INDICADOR"
+              
+              break
+              
        try:
-              ind = ind = ind_function(np_closes,np_opens,np_closes)
-       except Exception as e:
-              print('{}'.format(e))
+              ind_function = getattr(talib, select_ind)
+              ind = ind_function(np_closes)
+              indicador_confirmation = True
+              break
+       except AttributeError:
+              print("ATRIBUTO NO ENCONTRADO, Intente nuevamente")
 
-print(ind)
+
+              
+       except Exception as e:
+              try:
+                     ind = ind = ind_function(np_closes,np_opens,np_closes)
+              except Exception as e:
+                     print('{}'.format(e))
+
+
 
 if select_coin == 1:
        choice = "tipo_cambio_bna_vendedor"
@@ -62,31 +77,28 @@ elif select_coin == 4:
        choice = "tipo_cambio_implicito_en_adrs"
 
 
-
-
-
-
-
-
-
 data1 = data[['indice_tiempo',choice]]
+if indicador_confirmation == True:
+       data1.insert(2,select_ind,ind)
 
-
-
-
-
-data1.insert(2,select_ind,ind)
 plotly_template = pio.templates["plotly_dark"]
 
 try:
        fig = px.line(data1, x = data1.indice_tiempo,y= data1.columns ,title = '{}'.format(select_ind)+' en {}'.format(choice))
        if select_ind == 'RSI':
               add_horizontal_lines(fig,30,70)
-       elif select_ind == '':
-              print("No se ha seleccionado ninguna funcion")
+       
        elif select_ind == 'MOM':
               add_horizontal_lines(fig,0,0)       
+       if indicador_confirmation == False:
+              print("GRAFICANDO SIN INDICADOR")
+              
        fig.update_layout(template=plotly_template)
+       #fig.update_layout(yaxis_range=[0,250])
+       fig.update_yaxes(dtick=10)
+       #fig.update_xaxes(showgrid=False,zeroline=False)
+
+
        fig.show()
 except Exception as e:
        print('{}'.format(e))
