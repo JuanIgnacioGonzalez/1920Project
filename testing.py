@@ -4,7 +4,7 @@ import plotly.express as px
 import plotly.io as pio
 
 
-import talib
+import talib as talib
 import numpy
 
 data = pd.read_csv('datos-tipo-cambio-usd-futuro-dolar-frecuencia-diaria.csv', sep = ',')
@@ -28,15 +28,19 @@ while cont <= int(data.index[-1]):
 
 np_closes = numpy.array(closes)
 
+ind_function = getattr(talib, 'MOM')
 
-x = getattr(talib, 'RSI')
+ind = ind_function(np_closes)
 
-rsi = talib.x(np_closes)
+print(ind)
 
-print(rsi)
+#print(z)
+#rsi = talib.x(np_closes)
+
+
 
 data1 = data[['indice_tiempo','tipo_cambio_implicito_en_adrs']]
-data1.insert(2,'rsi',rsi)
+data1.insert(2,'rsi',ind)
 plotly_template = pio.templates["plotly_dark"]
 
 try:
