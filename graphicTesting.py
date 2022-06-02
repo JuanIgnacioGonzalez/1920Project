@@ -30,4 +30,6 @@ fig.update_xaxes(calendar = "gregorian")
 fig.update_xaxes(gridwidth=3)
 fig.update_xaxes(linewidth=5)
 print(df)
+
+
 fig.show()
