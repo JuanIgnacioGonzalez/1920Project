@@ -24,28 +24,35 @@ data = pd.read_csv('datos-tipo-cambio-usd-futuro-dolar-frecuencia-diaria.csv', s
 
 #print(data['tipo_cambio_implicito_en_adrs'])
 
-closes = []
+closes = [0]
+opens = [0]
 
-cont = 0
+cont = 1
 while cont <= int(data.index[-1]):
        closes.append(data['tipo_cambio_implicito_en_adrs'][cont])
+       opens.append(data['tipo_cambio_implicito_en_adrs'][cont-1])
        cont = cont+1
 
+
 np_closes = numpy.array(closes)
+np_opens = numpy.array(opens)
 
-ind_function = getattr(talib, 'RSI')
+select_ind = str(input()).upper()
 
-ind = ind_function(np_closes)
+ind_function = getattr(talib, select_ind)
+
+try:
+       ind = ind_function(np_closes)
+except Exception as e:
+       try:
+              ind = ind = ind_function(np_closes,np_opens,np_closes)
+       except Exception as e:
+              print('{}'.format(e))
 
 print(ind)
 
-#print(z)
-#rsi = talib.x(np_closes)
-
-
-
 data1 = data[['indice_tiempo','tipo_cambio_implicito_en_adrs']]
-data1.insert(2,'indicador_elegido',ind)
+data1.insert(2,select_ind,ind)
 plotly_template = pio.templates["plotly_dark"]
 
 try:
