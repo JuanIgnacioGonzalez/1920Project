@@ -36,6 +36,11 @@ select_ind = str(input()).upper()
 
 ind_function = getattr(talib, select_ind)
 
+
+ayuda = str(help(ind_function))
+
+print(ayuda)
+
 try:
        ind = ind_function(np_closes)
 except Exception as e:
