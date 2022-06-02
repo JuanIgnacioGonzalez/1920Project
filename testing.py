@@ -26,7 +26,10 @@ while cont <= int(data.index[-1]):
 
 np_closes = numpy.array(closes)
 
-rsi = talib.RSI(np_closes)
+
+x = getattr(talib, 'RSI')
+
+rsi = talib.x(np_closes)
 
 print(rsi)
 
