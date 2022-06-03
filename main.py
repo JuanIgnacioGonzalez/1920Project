@@ -37,67 +37,67 @@ select_coin = int(
 #seleccion de indicador/es para chart
 print('A continuacion, los indicadores disponibles')
 for i in talib.get_function_groups():
-       print(' ')
-       print(i)
-       print(talib.get_function_groups()[i])
+    print(' ')
+    print(i)
+    print(talib.get_function_groups()[i])
 while True:
-       
-       select_ind = str(
-              input(
-              "INGRESE EL INDICADOR QUE QUIERA USAR, SI NO QUIERE ANALIZAR INGRESE N-->  "
-              )
-       ).upper()
-       if select_ind == "N":
-              ind_function = "N"
-              select_ind = "SIN INDICADOR"
+    
+    select_ind = str(
+        input(
+        "INGRESE EL INDICADOR QUE QUIERA USAR, SI NO QUIERE ANALIZAR INGRESE N-->  "
+        )
+    ).upper()
+    if select_ind == "N":
+        ind_function = "N"
+        select_ind = "SIN INDICADOR"
 
-              break
+        break
 
-       try:
-              ind_function = getattr(talib, select_ind)
-              ind = ind_function(np_closes)
-              indicador_confirmation = True
-              if type(ind) == tuple or float(ind[-1]) >= float(closes[-1])*4:
-                  print('INGRESE OTRO INDICADOR')
-                  pass
-              
-              else:
-                  break
-       except AttributeError:
-              print("ATRIBUTO NO ENCONTRADO, Intente nuevamente")
+    try:
+        ind_function = getattr(talib, select_ind)
+        ind = ind_function(np_closes)
+        indicador_confirmation = True
+        if type(ind) == tuple or float(ind[-1]) >= float(closes[-1])*4:
+            print('INGRESE OTRO INDICADOR')
+            pass
+            
+        else:
+            break
+    except AttributeError:
+        print("ATRIBUTO NO ENCONTRADO, Intente nuevamente")
 
-       except Exception as e:
-              try:
-                     ind_function = getattr(talib, select_ind)
-                     ind =  ind_function(np_closes, np_opens)
-                     indicador_confirmation = True
-                     if type(ind) == tuple or float(ind[-1]) >= float(closes[-1])*4:
-                            print('INGRESE OTRO INDICADOR')
-                            pass
-                     else:
-                            break
-              except Exception as e:
-                     try:
-                            ind_function = getattr(talib, select_ind)
-                            ind =  ind_function(np_closes, np_opens, np_closes)
-                            indicador_confirmation = True
-                            if type(ind) == tuple or float(ind[-1]) >= float(closes[-1])*4:
-                                    print('INGRESE OTRO INDICADOR')
-                                    pass
-                            else:
-                                    break
-                     except Exception as e:
-                            try:
-                                   ind_function = getattr(talib, select_ind)
-                                   ind =  ind_function( np_opens, np_closes, np_opens, np_closes)
-                                   indicador_confirmation = True
-                                   if type(ind) == tuple or float(ind[-1]) >= float(closes[-1])*4:
-                                            print('INGRESE OTRO INDICADOR')
-                                            pass
-                                   else:
-                                            break
-                            except Exception as e:
-                                   print("ATRIBUTO NO ENCONTRADO, Intente nuevamente")
+    except Exception as e:
+        try:
+            ind_function = getattr(talib, select_ind)
+            ind =  ind_function(np_closes, np_opens)
+            indicador_confirmation = True
+            if type(ind) == tuple or float(ind[-1]) >= float(closes[-1])*4:
+                print('INGRESE OTRO INDICADOR')
+                pass
+            else:
+                break
+        except Exception as e:
+            try:
+                ind_function = getattr(talib, select_ind)
+                ind =  ind_function(np_closes, np_opens, np_closes)
+                indicador_confirmation = True
+                if type(ind) == tuple or float(ind[-1]) >= float(closes[-1])*4:
+                    print('INGRESE OTRO INDICADOR')
+                    pass
+                else:
+                    break
+            except Exception as e:
+                try:
+                    ind_function = getattr(talib, select_ind)
+                    ind =  ind_function( np_opens, np_closes, np_opens, np_closes)
+                    indicador_confirmation = True
+                    if type(ind) == tuple or float(ind[-1]) >= float(closes[-1])*4:
+                        print('INGRESE OTRO INDICADOR')
+                        pass
+                    else:
+                        break
+                except Exception as e:
+                    print("ATRIBUTO NO ENCONTRADO, Intente nuevamente")
 
 #analisis de datos ingresados por consola
 if select_coin == 1:
@@ -118,18 +118,18 @@ plotly_template = pio.templates["plotly_dark"]
 
 try:
     fig = px.line(
-       data1,
-       x=data1.indice_tiempo,
-       y=data1.columns,
-       title="{}".format(select_ind) + " en {}".format(choice),
+        data1,
+        x=data1.indice_tiempo,
+        y=data1.columns,
+        title="{}".format(select_ind) + " en {}".format(choice),
     )
     if select_ind == "RSI":
-       add_horizontal_lines(fig, 30, 70)
+        add_horizontal_lines(fig, 30, 70)
 
     elif select_ind == "MOM":
-       add_horizontal_lines(fig, 0, 0)
+        add_horizontal_lines(fig, 0, 0)
     if indicador_confirmation == False:
-       print("GRAFICANDO SIN INDICADOR")
+        print("GRAFICANDO SIN INDICADOR")
 
     fig.update_layout(template=plotly_template)
     # fig.update_layout(yaxis_range=[0,250])
