@@ -34,7 +34,8 @@ np_opens = numpy.array(opens)
 #seleccion de activo por consola
 select_coin = int(
     input(
-        "(1):tipo_cambio_bna_vendedor \n(2):tipo_cambio_a3500 \n(3):tipo_cambio_mae\n(4):tipo_cambio_implicito_en_adrs \nINGRESE LA MONEDA QUE QUIERA USAR-->  "
+        "---------------------------------"
+        + "\n(1):tipo_cambio_bna_vendedor \n(2):tipo_cambio_a3500 \n(3):tipo_cambio_mae\n(4):tipo_cambio_implicito_en_adrs \nINGRESE LA MONEDA QUE QUIERA USAR-->  "
     )
 )
 
