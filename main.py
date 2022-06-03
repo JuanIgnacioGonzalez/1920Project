@@ -97,9 +97,6 @@ while True:
                             except Exception as e:
                                    print("ATRIBUTO NO ENCONTRADO, Intente nuevamente")
 
-print(type(ind))
-
-exit()
 #analisis de datos ingresados por consola
 if select_coin == 1:
     choice = "tipo_cambio_bna_vendedor"
