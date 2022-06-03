@@ -56,7 +56,11 @@ while True:
               ind_function = getattr(talib, select_ind)
               ind = ind_function(np_closes)
               indicador_confirmation = True
-              break
+              if type(ind) == tuple:
+                  print('INGRESE OTRO INDICADOR')
+                  pass
+              else:
+                  break
        except AttributeError:
               print("ATRIBUTO NO ENCONTRADO, Intente nuevamente")
 
@@ -65,24 +69,37 @@ while True:
                      ind_function = getattr(talib, select_ind)
                      ind =  ind_function(np_closes, np_opens)
                      indicador_confirmation = True
-                     break
+                     if type(ind) == tuple:
+                            print('INGRESE OTRO INDICADOR')
+                            pass
+                     else:
+                            break
               except Exception as e:
                      try:
                             ind_function = getattr(talib, select_ind)
                             ind =  ind_function(np_closes, np_opens, np_closes)
                             indicador_confirmation = True
-                            
-                            break
+                            if type(ind) == tuple:
+                                    print('INGRESE OTRO INDICADOR')
+                                    pass
+                            else:
+                                    break
                      except Exception as e:
                             try:
                                    ind_function = getattr(talib, select_ind)
                                    ind =  ind_function( np_opens, np_closes, np_opens, np_closes)
                                    indicador_confirmation = True
-                                   break
+                                   if type(ind) == tuple:
+                                            print('INGRESE OTRO INDICADOR')
+                                            pass
+                                   else:
+                                            break
                             except Exception as e:
                                    print("ATRIBUTO NO ENCONTRADO, Intente nuevamente")
 
-print(ind)
+print(type(ind))
+
+exit()
 #analisis de datos ingresados por consola
 if select_coin == 1:
     choice = "tipo_cambio_bna_vendedor"
