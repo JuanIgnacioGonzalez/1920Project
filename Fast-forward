@@ -1,0 +1,21 @@
+[33m66ba8e3[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{0}: rebase: checkout origin/main
+[33m31ae599[m[33m ([m[1;32mmain[m[33m)[m HEAD@{1}: commit: asd
+[33m611cd83[m HEAD@{2}: pull --tags origin main: Fast-forward
+[33me2e1680[m HEAD@{3}: commit: estetica
+[33me8dafae[m HEAD@{4}: commit: formateado con black
+[33me4b09d0[m HEAD@{5}: commit (merge): Merge branch 'main' of https://github.com/JuanIgnacioGonzalez/1920Project into main
+[33m9670f8a[m HEAD@{6}: commit: Cambios esteticos, validador de uso de indicador
+[33m04ea749[m HEAD@{7}: commit: Eleccion de moneda, titulo
+[33m7816fe4[m HEAD@{8}: commit (merge): Merge branch 'main' of https://github.com/JuanIgnacioGonzalez/1920Project into main
+[33m334f50f[m HEAD@{9}: commit: funcion add_horizontal_lines
+[33m5e9d5d8[m HEAD@{10}: pull --tags origin main: Fast-forward
+[33mbdb4afa[m HEAD@{11}: commit: dark template + lineas rsi
+[33me579f84[m HEAD@{12}: commit: Tiempo de analisis acortado
+[33m198ae7c[m HEAD@{13}: pull --tags origin main: Merge made by the 'recursive' strategy.
+[33mf929bae[m HEAD@{14}: commit (merge): Merge branch 'main' of https://github.com/JuanIgnacioGonzalez/1920Project into main
+[33m37c4d23[m HEAD@{15}: commit: cambios para mergear
+[33m0cbfa91[m HEAD@{16}: commit: requirements pipenv
+[33me1e0710[m HEAD@{17}: commit: GRAFICOUSDCONCSV
+[33md90e554[m HEAD@{18}: commit: mejora del grafico
+[33m68af1fa[m[33m ([m[1;31morigin/developing[m[33m)[m HEAD@{19}: commit: primer prueba grafico
+[33m38670bc[m HEAD@{20}: clone: from https://github.com/JuanIgnacioGonzalez/1920Project.git
