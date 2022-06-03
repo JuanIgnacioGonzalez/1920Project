@@ -6,11 +6,6 @@ import plotly.io as pio
 import talib as talib
 import numpy
 
-for i in talib.get_function_groups():
-       print(' ')
-       print(i)
-       print(talib.get_function_groups()[i])
-
 def add_horizontal_lines(graph, y_low, y_high):
     graph.add_hline(y=y_high, line_width=3, line_dash="dash", line_color="gray")
 
@@ -34,18 +29,18 @@ np_opens = numpy.array(opens)
 #seleccion de activo por consola
 select_coin = int(
     input(
-        "---------------------------------"
-        + "\n(1):tipo_cambio_bna_vendedor \n(2):tipo_cambio_a3500 \n(3):tipo_cambio_mae\n(4):tipo_cambio_implicito_en_adrs \nINGRESE LA MONEDA QUE QUIERA USAR-->  "
+        "(1):tipo_cambio_bna_vendedor \n(2):tipo_cambio_a3500 \n(3):tipo_cambio_mae\n(4):tipo_cambio_implicito_en_adrs \nINGRESE LA MONEDA QUE QUIERA USAR-->  "
     )
 )
 
 #seleccion de indicador/es para chart
+print('A continuacion, los indicadores disponibles')
+for i in talib.get_function_groups():
+       print(' ')
+       print(i)
+       print(talib.get_function_groups()[i])
 while True:
-       print('A continuacion, los indicadores disponibles')
-       for i in talib.get_function_groups():
-              print(' ')
-              print(i)
-              print(talib.get_function_groups()[i])
+       
        select_ind = str(
               input(
               "INGRESE EL INDICADOR QUE QUIERA USAR, SI NO QUIERE ANALIZAR INGRESE N-->  "
@@ -67,15 +62,24 @@ while True:
 
        except Exception as e:
               try:
-                     ind = ind = ind_function(np_closes, np_opens)
+                     ind_function = getattr(talib, select_ind)
+                     ind =  ind_function(np_closes, np_opens)
+                     indicador_confirmation = True
+                     break
               except Exception as e:
                      try:
-                            ind = ind = ind_function(np_closes, np_opens, np_closes)
+                            ind_function = getattr(talib, select_ind)
+                            ind =  ind_function(np_closes, np_opens, np_closes)
+                            indicador_confirmation = True
+                            break
                      except Exception as e:
                             try:
-                                   ind = ind = ind_function(np_opens, np_closes, np_opens, np_closes)
-                            except Exception as e:
-                                   print("{}".format(e))
+                                   ind_function = getattr(talib, select_ind)
+                                   ind =  ind_function( np_opens, np_closes, np_opens, np_closes)
+                                   indicador_confirmation = True
+                                   break
+                            except AttributeError:
+                                   print("ATRIBUTO NO ENCONTRADO, Intente nuevamente")
 
 
 #analisis de datos ingresados por consola
