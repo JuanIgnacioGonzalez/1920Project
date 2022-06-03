@@ -29,7 +29,7 @@ np_opens = numpy.array(opens)
 #seleccion de activo por consola
 select_coin = int(
     input(
-        "(1):tipo_cambio_bna_vendedor \n(2):tipo_cambio_a3500 \n(3):tipo_cambio_mae\n(4):tipo_cambio_implicito_en_adrs \nINGRESE LA MONEDA QUE QUIERA USAR-->  "
+        "(1):tipo_cambio_bna_vendedor (Banco Nacion) \n(2):tipo_cambio_a3500 (Mayorista) \n(3):tipo_cambio_mae (Electronico)\n(4):tipo_cambio_implicito_en_adrs (Dolar Informal) \nINGRESE LA MONEDA QUE QUIERA USAR-->  "
     )
 )
 
@@ -71,6 +71,7 @@ while True:
                             ind_function = getattr(talib, select_ind)
                             ind =  ind_function(np_closes, np_opens, np_closes)
                             indicador_confirmation = True
+                            
                             break
                      except Exception as e:
                             try:
@@ -78,10 +79,10 @@ while True:
                                    ind =  ind_function( np_opens, np_closes, np_opens, np_closes)
                                    indicador_confirmation = True
                                    break
-                            except AttributeError:
+                            except Exception as e:
                                    print("ATRIBUTO NO ENCONTRADO, Intente nuevamente")
 
-
+print(ind)
 #analisis de datos ingresados por consola
 if select_coin == 1:
     choice = "tipo_cambio_bna_vendedor"
