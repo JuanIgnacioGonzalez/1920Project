@@ -1,3 +1,4 @@
+from asyncore import close_all
 import csv
 from turtle import width
 import pandas as pd
@@ -56,9 +57,10 @@ while True:
               ind_function = getattr(talib, select_ind)
               ind = ind_function(np_closes)
               indicador_confirmation = True
-              if type(ind) == tuple:
+              if type(ind) == tuple or float(ind[-1]) >= float(closes[-1])*4:
                   print('INGRESE OTRO INDICADOR')
                   pass
+              
               else:
                   break
        except AttributeError:
@@ -69,7 +71,7 @@ while True:
                      ind_function = getattr(talib, select_ind)
                      ind =  ind_function(np_closes, np_opens)
                      indicador_confirmation = True
-                     if type(ind) == tuple:
+                     if type(ind) == tuple or float(ind[-1]) >= float(closes[-1])*4:
                             print('INGRESE OTRO INDICADOR')
                             pass
                      else:
@@ -79,7 +81,7 @@ while True:
                             ind_function = getattr(talib, select_ind)
                             ind =  ind_function(np_closes, np_opens, np_closes)
                             indicador_confirmation = True
-                            if type(ind) == tuple:
+                            if type(ind) == tuple or float(ind[-1]) >= float(closes[-1])*4:
                                     print('INGRESE OTRO INDICADOR')
                                     pass
                             else:
@@ -89,7 +91,7 @@ while True:
                                    ind_function = getattr(talib, select_ind)
                                    ind =  ind_function( np_opens, np_closes, np_opens, np_closes)
                                    indicador_confirmation = True
-                                   if type(ind) == tuple:
+                                   if type(ind) == tuple or float(ind[-1]) >= float(closes[-1])*4:
                                             print('INGRESE OTRO INDICADOR')
                                             pass
                                    else:
